@@ -36,11 +36,15 @@ function checkForMatch() { //created a function named checkForMatch
 }
 
 
-function flipCard(cardId) { //created a function named flipCard with the parameter cardId inside
+function flipCard() { 
+	cardId = this.getAttribute('data-id');  //remember its data-id not card-id (They tell me this)
 	cardsInPlay.push(cards[cardId].rank); //this will add whatever argument is given for cardId to the array cardsInPlay
 	console.log("User flipped " +cards[cardId].rank); //then it will log users flipped (argument given for cardID)
 	console.log(cards[cardId].cardImage);
 	console.log(cards[cardId].suit);
+
+	this.setAttribute('src', cards[cardId].cardImage) //UNSURE about value
+
 
 	if (cardsInPlay.length === 2) {
 		checkForMatch();
@@ -49,6 +53,18 @@ function flipCard(cardId) { //created a function named flipCard with the paramet
 
 }
 
-flipCard(0); //giving the parameter inside flipCard, i.e: cardId the value 0
-flipCard(2);// giving the parameter inside flipCard the value 2
+function createBoard() {
+	for (let i = 0; i < cards.length; i++) {
+		var cardElement = document.createElement('img');
+		cardElement.setAttribute('src','images/back.png');
+		cardElement.setAttribute('data-id',i); 
+		cardElement.addEventListener('click', flipCard);
+		document.getElementById('game-board').appendChild(cardElement);
+
+
+
+	}
+}
+
+createBoard();
 
